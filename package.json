@@ -1,0 +1,27 @@
+{
+  "name": "apollo-validated-address-microservice",
+  "version": "0.0.1-beta.1",
+  "description": "Node service to validate address inputs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apollo-agit/apollo-validated-address-microservice.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Hambone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apollo-agit/apollo-validated-address-microservice/issues"
+  },
+  "homepage": "https://github.com/apollo-agit/apollo-validated-address-microservice#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.3"
+  }
+}
