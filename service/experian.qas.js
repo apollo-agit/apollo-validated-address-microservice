@@ -1,5 +1,6 @@
 var https = require('https');
 Suggestion = require('../model/suggestion.model');
+var UKAddress = require('../model/address.uk.model');
 
 module.exports.search = function (searchString) {
 
@@ -35,4 +36,34 @@ module.exports.search = function (searchString) {
 	    console.log('big error', e);
 	});
 	
+};
+
+module.exports.getAddressFormat  = function(searchString) {
+
+	var optionsget = {
+	    host : 'api.edq.com',
+	    port : 443,
+	    path : '/capture/address/v2/format' + searchString + '&auth-token=72821f89-b6be-4447-a039-3c382a201b27', 
+	    method : 'GET'
+	};
+
+	return new Promise((resolve, reject) => {
+		var reqGet = https.request(optionsget, function(res) {
+
+		    res.on('data', function(raw) {
+		    	console.log(JSON.parse(raw).address);
+		    	var result = new UKAddress(null);
+		    	result.transformJsonFromQAS(JSON.parse(raw).address);
+		        return resolve(result);
+		    });
+		 
+		});
+
+		reqGet.end();		
+	});
+
+	reqGet.on('error', function(e) {
+	    console.log('big error', e);
+	});
+
 };
