@@ -1,35 +1,37 @@
 var https = require('https');
-//var Address = require('../model/address.model');
+Suggestion = require('../model/suggestion.model');
 
 module.exports.search = function (searchString) {
 
 	var optionsget = {
 	    host : 'api.edq.com',
 	    port : 443,
-	    path : '/capture/address/v2/search' + searchString + '&query=experian+data+quality&take=7&auth-token=72821f89-b6be-4447-a039-3c382a201b27', 
+	    path : '/capture/address/v2/search' + searchString + '&take=7&auth-token=72821f89-b6be-4447-a039-3c382a201b27', 
 	    method : 'GET'
 	};
-	console.log("search with: ", optionsget);
 
+	return new Promise((resolve, reject) => {
+		var reqGet = https.request(optionsget, function(res) {
 
-	var reqGet = https.request(optionsget, function(res) {
-	    console.log("statusCode: ", res.statusCode);
- 	 
-	    res.on('data', function(d) {
-	        console.log('GET result:\n');
-	        process.stdout.write(d);
-	        console.log('\n\nCall completed');
-	    });
-	 
+		    res.on('data', function(raw) {
+		    	var result = JSON.parse(raw);
+
+		        var resultArr = new Array();
+		        for(var i=0, len=result.results.length; i<len; i++) {
+		        	var experian = result.results[i];
+		        	resultArr.push(new Suggestion(experian.suggestion, experian.format));
+		        }
+
+		        return resolve(resultArr);
+		    });
+		 
+		});
+
+		reqGet.end();		
 	});
 
-	reqGet.end();
 	reqGet.on('error', function(e) {
-	    console.log("big error", e);
+	    console.log('big error', e);
 	});
 	
-};
-
-module.exports.parse = function(model) {
-	console.log(model);
 };

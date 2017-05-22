@@ -1,12 +1,14 @@
 "use strict"
 const querystring = require('querystring');
 
-var UKAddress = function() {
+var UKAddress = function(json) {
 	this.addressLine1;
 	this.addressLine2;
 	this.town;
 	this.postCode;
 	this.country;
+
+	this.parseJson(json);
 };
 
 UKAddress.prototype.parseJson = function(json) {
@@ -14,17 +16,17 @@ UKAddress.prototype.parseJson = function(json) {
 };
 
 UKAddress.prototype.toUrlString = function() {
-	var urlArgs = '?country=gbr';
+	var urlArgs = '?country=gbr&query=';
 	if(this.addressLine1)
-		urlArgs += '&addressLine1=' + this.addressLine1;
+		urlArgs += querystring.escape(this.addressLine1);
 	if(this.addressLine2)
-		urlArgs += '&addressLine2=' + this.addressLine2;
+		urlArgs += querystring.escape(this.addressLine2);
 	if(this.town)
-		urlArge += '&locality=' + this.locality;
+		urlArge += querystring.escape(this.locality);
 	if(this.postCode)
-		urlArgs += '&postalCode=' + this.postCode;
+		urlArgs += querystring.escape(this.postCode);
 
-	return urlArgs.replace(' ', '%');
+	return urlArgs;
 };
 
 module.exports = UKAddress;

@@ -14,47 +14,15 @@ wsRouter.route('/address/id/:id')
         res.status(501).send("delete not implemented");
 });
 
+
 wsRouter.route('/address/list')
-    .get(function (req, res) {
-        res.json([
-                    {
-                      "addressLine1": "690 Regal Lane",
-                      "addressLine2": "Back yard",
-                      "city": "Aurora",
-                      "state": "IL",
-                      "county": "Kane",
-                      "country": "United States"
-                    },
-                    {
-                      "addressLine1": "690 Melrose Ave",
-                      "addressLine2": "",
-                      "city": "Montgomery",
-                      "state": "IL",
-                      "county": "Kendall",
-                      "country": "United States"
-                    },
-                    {
-                      "addressLine1": "690 Manchester Lane",
-                      "addressLine2": "Apt 56",
-                      "city": "Aurora",
-                      "state": "IL",
-                      "county": "Kane",
-                      "country": "United States"
-                    }              
-                  ]
-                  );     
-    });
-
-
-wsRouter.route('/address/testing')
     .post(function (req, res) {
-      var address = new UKAddress();
-      address.parseJson(req.body);
+      var address = new UKAddress(req.body);
       var urlArgs = address.toUrlString();
-      console.log(urlArgs);
 
-      var results = qas.search(urlArgs);
-      res.status(200).send(results);
+      qas.search(urlArgs).then(results => {
+        res.status(200).send(results);
+      });      
 });
 
 
