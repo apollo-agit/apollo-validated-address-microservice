@@ -2,10 +2,11 @@ express = require('express');
 var app = express();
 var port = process.env.PORT || 8082; 
 
-bodyParser = require('body-parser');
-app.use(bodyParser.json());
 var cors = require('cors');
 app.use(cors());
+bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
 
 wsRouter = require('./router/api-router');
 

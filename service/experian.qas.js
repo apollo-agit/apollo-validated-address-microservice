@@ -15,7 +15,8 @@ module.exports.search = function (searchString) {
 
 		    res.on('data', function(raw) {
 		    	var result = JSON.parse(raw);
-
+		    	if(!result.results)
+		    		return reject(result);
 		        var resultArr = new Array();
 		        for(var i=0, len=result.results.length; i<len; i++) {
 		        	var experian = result.results[i];

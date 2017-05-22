@@ -18,8 +18,9 @@ wsRouter.route('/address/id/:id')
 wsRouter.route('/address/list')
     .post(function (req, res) {
       var address = new UKAddress(req.body);
+      console.log(req.body);
       var urlArgs = address.toUrlString();
-
+      console.log(urlArgs);
       qas.search(urlArgs).then(results => {
         res.status(200).send(results);
       });      
