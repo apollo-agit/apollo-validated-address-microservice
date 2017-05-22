@@ -1,6 +1,7 @@
 express = require('express');
 var wsRouter = express.Router();
 qas = require('../service/experian.qas.js');
+var UKAddress = require('../model/address.uk.model');
 
 wsRouter.route('/address/id/:id')
     .get(function (req, res) {
@@ -46,9 +47,14 @@ wsRouter.route('/address/list')
 
 
 wsRouter.route('/address/testing')
-    .get(function (req, res) {
-      qas.search(null);
-      res.status(200).send('sweet');
+    .post(function (req, res) {
+      var address = new UKAddress();
+      address.parseJson(req.body);
+      var urlArgs = address.toUrlString();
+      console.log(urlArgs);
+
+      var results = qas.search(urlArgs);
+      res.status(200).send(results);
 });
 
 

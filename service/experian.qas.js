@@ -1,12 +1,12 @@
 var https = require('https');
+//var Address = require('../model/address.model');
 
 module.exports.search = function (searchString) {
-//"https://api.edq.com/capture/address/v2/search?country=gbr&query=experian+data+quality&take=7&auth-token=72821f89-b6be-4447-a039-3c382a201b27"
 
 	var optionsget = {
 	    host : 'api.edq.com',
 	    port : 443,
-	    path : '/capture/address/v2/search?country=gbr&query=experian+data+quality&take=7&auth-token=72821f89-b6be-4447-a039-3c382a201b27', 
+	    path : '/capture/address/v2/search' + searchString + '&query=experian+data+quality&take=7&auth-token=72821f89-b6be-4447-a039-3c382a201b27', 
 	    method : 'GET'
 	};
 	console.log("search with: ", optionsget);
@@ -27,6 +27,9 @@ module.exports.search = function (searchString) {
 	reqGet.on('error', function(e) {
 	    console.log("big error", e);
 	});
-
 	
+};
+
+module.exports.parse = function(model) {
+	console.log(model);
 };
