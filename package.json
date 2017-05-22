@@ -22,6 +22,8 @@
   "homepage": "https://github.com/apollo-agit/apollo-validated-address-microservice#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
-    "express": "^4.15.3"
+    "cors": "^2.8.3",
+    "express": "^4.15.3",
+    "https": "^1.0.0"
   }
 }

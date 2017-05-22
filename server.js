@@ -4,6 +4,8 @@ var port = process.env.PORT || 8082;
 
 bodyParser = require('body-parser');
 app.use(bodyParser.json());
+var cors = require('cors');
+app.use(cors());
 
 wsRouter = require('./router/api-router');
 
