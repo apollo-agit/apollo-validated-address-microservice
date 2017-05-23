@@ -1,15 +1,15 @@
 express = require('express');
 var wsRouter = express.Router();
 qas = require('../service/experian.qas.js');
-var UKAddress = require('../model/address.uk.model');
 var UKAddressFormat = require('../model/address.format.uk.model');
+var Query = require('../model/query.model');
 
 wsRouter.route('/address/id/:id')
     .get(function (req, res) {
 
       var format = new UKAddressFormat(req.params.id);
       var urlArgs = format.toUrlString();
-      console.log(urlArgs);
+
       qas.getAddressFormat(urlArgs).then(result => {
         res.status(200).send(result);
       }); 
@@ -25,9 +25,9 @@ wsRouter.route('/address/id/:id')
 
 wsRouter.route('/address/list')
     .post(function (req, res) {
-      var address = new UKAddress(req.body);
-      var urlArgs = address.toUrlString();
-
+      var query = new Query(req.body);
+      var urlArgs = query.toUrlString();
+      console.log(urlArgs);
       qas.search(urlArgs).then(results => {
         res.status(200).send(results);
       });      

@@ -29,7 +29,7 @@ module.exports.search = function (searchString) {
 		 
 		});
 
-		reqGet.end();		
+		reqGet.end();	
 	});
 
 	reqGet.on('error', function(e) {
@@ -51,7 +51,6 @@ module.exports.getAddressFormat  = function(searchString) {
 		var reqGet = https.request(optionsget, function(res) {
 
 		    res.on('data', function(raw) {
-		    	console.log(JSON.parse(raw).address);
 		    	var result = new UKAddress(null);
 		    	result.transformJsonFromQAS(JSON.parse(raw).address);
 		        return resolve(result);

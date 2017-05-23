@@ -21,8 +21,6 @@ UKAddress.prototype.transformJsonFromQAS = function(json) {
  for(var i=0, len=json.length; i<len; i++) {
  	var obj = json[i];
  	for(var key in obj) {
- 		console.log("'" + key + "'");
- 		console.log(obj[key]);
  	    if(key == 'addressLine1')
  	    	this.addressLine1 = obj[key];
  	    else if(key == 'addressLine2')
@@ -35,21 +33,8 @@ UKAddress.prototype.transformJsonFromQAS = function(json) {
  	    	this.country = obj[key];
  	}
  }
-	console.log(this);
+ 
 };
 
-UKAddress.prototype.toUrlString = function() {
-	var urlArgs = '?country=gbr&query=';
-	if(this.addressLine1)
-		urlArgs += querystring.escape(this.addressLine1);
-	if(this.addressLine2)
-		urlArgs += querystring.escape(this.addressLine2);
-	if(this.town)
-		urlArge += querystring.escape(this.locality);
-	if(this.postCode)
-		urlArgs += querystring.escape(this.postCode);
-
-	return urlArgs;
-};
 
 module.exports = UKAddress;
