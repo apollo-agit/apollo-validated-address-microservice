@@ -11,7 +11,7 @@ wsRouter.route('/address/id/:id')
       var urlArgs = format.toUrlString();
 
       qas.getAddressFormat(urlArgs).then(result => {
-        res.status(200).send(result);
+        res.status(200).send(result.transformToCanonical());
       }); 
 
     }).post(function (req, res) {
@@ -27,7 +27,6 @@ wsRouter.route('/address/list')
     .post(function (req, res) {
       var query = new Query(req.body);
       var urlArgs = query.toUrlString();
-      console.log(urlArgs);
       qas.search(urlArgs).then(results => {
         res.status(200).send(results);
       });      

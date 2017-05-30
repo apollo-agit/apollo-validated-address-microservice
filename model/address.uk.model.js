@@ -1,5 +1,6 @@
 "use strict"
 const querystring = require('querystring');
+const Canonical = require('./canonical.model');
 
 var UKAddress = function(json) {
 	this.addressLine1;
@@ -35,6 +36,15 @@ UKAddress.prototype.transformJsonFromQAS = function(json) {
  }
  
 };
+
+UKAddress.prototype.transformToCanonical = function() {
+	return new Canonical(this.addressLine1,
+		this.addressLine2,
+		this.town,
+		null,
+		this.postCode,
+		this.country);
+}
 
 
 module.exports = UKAddress;
