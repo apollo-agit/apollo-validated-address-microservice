@@ -26,6 +26,8 @@ UKAddress.prototype.transformJsonFromQAS = function(json) {
  	    	this.addressLine1 = obj[key];
  	    else if(key == 'addressLine2')
  	    	this.addressLine2 = obj[key];
+ 	    else if (key == 'addressLine3')
+ 	    	this.addressLine3 = obj[key];
  	    else if(key == 'locality')
  	    	this.town = obj[key];
  	    else if(key == 'postalCode')
@@ -40,6 +42,7 @@ UKAddress.prototype.transformJsonFromQAS = function(json) {
 UKAddress.prototype.transformToCanonical = function() {
 	return new Canonical(this.addressLine1,
 		this.addressLine2,
+		this.addressLine3,
 		this.town,
 		null,
 		this.postCode,
